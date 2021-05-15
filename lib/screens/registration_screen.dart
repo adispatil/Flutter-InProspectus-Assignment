@@ -35,131 +35,136 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
               ///login ui
               Expanded(
-                child: Center(
-                  child: ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(5.0),
-                    children: <Widget>[
-                      Hero(
-                        tag: 'logo',
-                        child: Container(
-                          height: 200.0,
-                          child: Image.asset(Assets.kAssetCompanyLogo),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 48.0,
-                      ),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: <Widget>[
+                    Center(
+                      child: ListView(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(5.0),
+                        children: <Widget>[
+                          Hero(
+                            tag: 'logo',
+                            child: Container(
+                              height: 200.0,
+                              child: Image.asset(Assets.kAssetCompanyLogo),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 48.0,
+                          ),
 
-                      ///first name
-                      TextField(
-                        style: kRegularInputTextStyle,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.next,
-                        textCapitalization: TextCapitalization.words,
-                        onChanged: (value) {
-                          _mFirstName = value;
-                        },
-                        obscureText: false,
-                        decoration: kInputDecorationStyle.copyWith(
-                            hintText: kHintEnterYourFirstName),
-                      ),
+                          ///first name
+                          TextField(
+                            style: kRegularInputTextStyle,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            textCapitalization: TextCapitalization.words,
+                            onChanged: (value) {
+                              _mFirstName = value;
+                            },
+                            obscureText: false,
+                            decoration: kInputDecorationStyle.copyWith(
+                                hintText: kHintEnterYourFirstName),
+                          ),
 
-                      SizedBox(
-                        height: 8.0,
-                      ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
 
-                      /// Last Name
-                      TextField(
-                        style: kRegularInputTextStyle,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.name,
-                        textInputAction: TextInputAction.next,
-                        textCapitalization: TextCapitalization.words,
-                        onChanged: (value) {
-                          _mLastName = value;
-                        },
-                        obscureText: false,
-                        decoration: kInputDecorationStyle.copyWith(
-                            hintText: kHintEnterYourLastName),
-                      ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
 
-                      SizedBox(
-                        height: 8.0,
-                      ),
+                          /// create user name
+                          TextField(
+                            style: kRegularInputTextStyle,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            onChanged: (value) {
+                              _mEmail = value;
+                            },
+                            obscureText: false,
+                            decoration: kInputDecorationStyle.copyWith(
+                                hintText: kHintCreateUserName),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
 
-                      /// Mobile number
-                      TextField(
-                        style: kRegularInputTextStyle,
-                        textAlign: TextAlign.center,
-                        maxLength: 10,
-                        keyboardType: TextInputType.phone,
-                        textInputAction: TextInputAction.next,
-                        onChanged: (value) {
-                          _mMobileNumber = value;
-                        },
-                        obscureText: false,
-                        decoration: kInputDecorationStyle.copyWith(
-                            hintText: kHintEnterYourMobile),
-                      ),
+                          /// Password
+                          TextField(
+                            style: kRegularInputTextStyle,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.done,
+                            onChanged: (value) {
+                              _mPassword = value;
+                            },
+                            obscureText: true,
+                            decoration: kInputDecorationStyle.copyWith(
+                                hintText: kHintEnterYourPassword),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
 
-                      SizedBox(
-                        height: 8.0,
-                      ),
+                          /// confirm password
+                          TextField(
+                            style: kRegularInputTextStyle,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            onChanged: (value) {
+                              _mMobileNumber = value;
+                            },
+                            obscureText: false,
+                            decoration: kInputDecorationStyle.copyWith(
+                                hintText: kHintConfirmPassword),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
 
-                      /// Email address
-                      TextField(
-                        style: kRegularInputTextStyle,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        onChanged: (value) {
-                          _mEmail = value;
-                        },
-                        obscureText: false,
-                        decoration: kInputDecorationStyle.copyWith(
-                            hintText: kHintEnterYourEmailAddress),
-                      ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
+                          /// Email address
+                          TextField(
+                            style: kRegularInputTextStyle,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            onChanged: (value) {
+                              _mEmail = value;
+                            },
+                            obscureText: false,
+                            decoration: kInputDecorationStyle.copyWith(
+                                hintText: kHintEnterYourEmailAddress),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
 
-                      /// Password
-                      TextField(
-                        style: kRegularInputTextStyle,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.done,
-                        onChanged: (value) {
-                          _mPassword = value;
-                        },
-                        obscureText: true,
-                        decoration: kInputDecorationStyle.copyWith(
-                            hintText: kHintEnterYourPassword),
+                          /// register button
+                          RoundedButtons(
+                            mColor: Colors.blueAccent,
+                            mButtonLabel: kLblRegister,
+                            onPressed: () {
+                              setState(() {
+                                FocusScope.of(context).unfocus();
+                              });
+                              try {
+                                Navigator.pushReplacementNamed(
+                                    context, LoginScreen.id);
+                              } catch (e) {
+                                print('Something wrong while creating user');
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 24.0,
-                      ),
-
-                      /// register button
-                      RoundedButtons(
-                        mColor: Colors.blueAccent,
-                        mButtonLabel: kLblRegister,
-                        onPressed: () {
-                          setState(() {
-                            FocusScope.of(context).unfocus();
-                          });
-                          try {
-                            Navigator.pushReplacementNamed(
-                                context, LoginScreen.id);
-                          } catch (e) {
-                            print('Something wrong while creating user');
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               )
             ],
