@@ -19,7 +19,8 @@ class AskQuestionTextFieldWidget extends StatelessWidget {
           textInputAction: TextInputAction.done,
           autofocus: false,
           decoration: InputDecoration(
-              hintText: 'Type your question...',
+              hintText: 'Have a burning question in mind? \nAsk to the community...',
+              hintStyle: TextStyle(color: Colors.grey, fontSize: 20),
               fillColor: Colors.white,
               filled: true,
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
