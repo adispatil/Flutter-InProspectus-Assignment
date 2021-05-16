@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AskQuestionTextFieldWidget extends StatelessWidget {
-  const AskQuestionTextFieldWidget({
-    Key key,
-  }) : super(key: key);
+
+  AskQuestionTextFieldWidget({this.onTextChanged, this.controller});
+  // const AskQuestionTextFieldWidget({
+  //   Key key,
+  // }) : super(key: key);
+
+
+
+  final Function onTextChanged;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +23,8 @@ class AskQuestionTextFieldWidget extends StatelessWidget {
           keyboardType: TextInputType.multiline,
           minLines: 5,
           maxLines: 5,
+          controller: controller,
+          onChanged: onTextChanged,
           textInputAction: TextInputAction.done,
           autofocus: false,
           decoration: InputDecoration(

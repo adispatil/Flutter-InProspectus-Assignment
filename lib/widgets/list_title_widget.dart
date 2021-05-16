@@ -11,7 +11,7 @@ class ListTitleWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Text(
-        titles[index],
+        titles.reversed.toList()[index],
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,

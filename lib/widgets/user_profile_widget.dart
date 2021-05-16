@@ -3,8 +3,9 @@ import 'package:flutter_inprospect_test/utils/app_constants.dart';
 
 class UserProfileDetailsWidget extends StatelessWidget {
 
-  UserProfileDetailsWidget({this.userDisplayName});
+  UserProfileDetailsWidget({this.userDisplayName, this.timeStamp});
   final String userDisplayName;
+  final String timeStamp;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class UserProfileDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '10:44 pm, April 7, 2021',
+                timeStamp,
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey,

@@ -5,6 +5,7 @@ const kLblRegister = 'Register';
 String kMenuOptionLogin = 'Sign In';
 String kMenuOptionSetting = 'Settings';
 String kDarkMode = 'Dark Mode';
+bool kIsLoggedInUser = false;
 
 const kDummyProfileImageUrl = 'https://tricksmaze.org/wp-content/uploads/2017/04/Stylish-Girls-Profile-Pictures-1.jpg';
 

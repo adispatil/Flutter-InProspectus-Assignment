@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_inprospect_test/main.dart';
+import 'package:flutter_inprospect_test/screens/login_screen.dart';
 import 'package:flutter_inprospect_test/screens/welcome_screen.dart';
 import 'package:flutter_inprospect_test/utils/app_constants.dart';
 import 'package:flutter_inprospect_test/utils/dummy_data.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_inprospect_test/widgets/ask_question_textfield_widget.da
 import 'package:flutter_inprospect_test/widgets/list_title_widget.dart';
 import 'package:flutter_inprospect_test/widgets/post_button_widget.dart';
 import 'package:flutter_inprospect_test/widgets/user_profile_widget.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -20,6 +22,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ThemeModel model = ThemeModel();
+
+  String _mUserInputQuestion = '';
+  final TextEditingController _controller = new TextEditingController();
 
   void handleClick(String value) {
     switch (value) {
@@ -44,11 +49,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget getDisplayQuestionImage(int index) {
-    if (index == 2 || index == 4) {
+    if (imagesToDisplay.reversed.toList()[index].isEmpty) {
       return SizedBox();
     } else {
       return DisplayImageWidget(index: index);
     }
+  }
+
+  String getFormatTimestamp() {
+    var format = DateFormat('hh:mm a MMM dd, yyyy'); // 'hh:mm' for hour & min
+    DateTime _now = DateTime.now();
+    return format.format(_now);
   }
 
   @override
@@ -82,11 +93,55 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           child: Column(
             children: <Widget>[
-              AskQuestionTextFieldWidget(),
+              AskQuestionTextFieldWidget(
+                controller: _controller,
+                onTextChanged: (value) {
+                  setState(
+                    () {
+                      _mUserInputQuestion = value;
+                    },
+                  );
+                },
+              ),
               SizedBox(
                 height: 5,
               ),
-              PostButtonWidget(),
+              PostButtonWidget(
+                userInputText: _mUserInputQuestion,
+                onSuccessOkClicked: () {
+                  setState(() {
+                    FocusScope.of(context).unfocus();
+                  });
+                  _mUserInputQuestion = '';
+                  _controller.clear();
+                },
+                onSignInClicked: (){
+                  setState(() {
+                    FocusScope.of(context).unfocus();
+                  });
+
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      WelcomeScreen.id, (Route<dynamic> route)=>false);
+                },
+                onSignInCancelPressed: (){
+                  setState(() {
+                    FocusScope.of(context).unfocus();
+                  });
+                  _controller.clear();
+                },
+                onSaveData: () {
+                  setState(() {
+                    FocusScope.of(context).unfocus();
+                    titles.add(_mUserInputQuestion);
+                    contents.add(contents[3]);
+                    displayNames.add('Dummy User');
+                    imagesToDisplay.add('');
+                    likeCount.add('0');
+                    commentCount.add('0');
+                    timeStamp.add(getFormatTimestamp());
+                  });
+                },
+              ),
               Expanded(
                 child: ListView.separated(
                     separatorBuilder: (BuildContext context, int index) {
@@ -94,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 8,
                       );
                     },
-                    itemCount: 5,
+                    itemCount: titles.length,
                     itemBuilder: (context, index) {
                       return Card(
                         elevation: 5.0,
@@ -104,7 +159,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             UserProfileDetailsWidget(
-                                userDisplayName: displayNames[index]),
+                              userDisplayName:
+                                  displayNames.reversed.toList()[index],
+                              timeStamp: timeStamp.reversed.toList()[index],
+                            ),
                             ListTitleWidget(index: index),
                             ListContentTextWidget(index: index),
                             getDisplayQuestionImage(index),
@@ -200,11 +258,11 @@ class LikeCommentWidget extends StatefulWidget {
   final int index;
 
   @override
-  _LikeCommentWidgetState createState() => _LikeCommentWidgetState(index: index);
+  _LikeCommentWidgetState createState() =>
+      _LikeCommentWidgetState(index: index);
 }
 
 class _LikeCommentWidgetState extends State<LikeCommentWidget> {
-
   _LikeCommentWidgetState({@required this.index});
 
   int index;
@@ -231,7 +289,7 @@ class _LikeCommentWidgetState extends State<LikeCommentWidget> {
                   likeCounter = int.parse(likeCount[this.index]);
                   print('Status : $isLike');
                   isLike = isLike ? false : true;
-                  if(isLike) {
+                  if (isLike) {
                     isLike = false;
                     likeCounter = likeCounter - 1;
                   } else {
@@ -242,7 +300,7 @@ class _LikeCommentWidgetState extends State<LikeCommentWidget> {
               }),
           SizedBox(width: 5),
           Text(
-            likeCount[this.index],
+            likeCount.reversed.toList()[this.index],
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 16,
@@ -257,7 +315,7 @@ class _LikeCommentWidgetState extends State<LikeCommentWidget> {
           ),
           SizedBox(width: 5),
           Text(
-            commentCount[widget.index],
+            commentCount.reversed.toList()[widget.index],
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 16,
@@ -285,7 +343,7 @@ class DisplayImageWidget extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 16 / 9,
               child: Image.network(
-                imagesToDisplay[index],
+                imagesToDisplay.reversed.toList()[index],
                 fit: BoxFit.fill,
                 loadingBuilder: (BuildContext context, Widget child,
                     ImageChunkEvent loadingProgress) {
@@ -318,7 +376,7 @@ class ListContentTextWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Text(
-        contents[index],
+        contents.reversed.toList()[index],
         style: TextStyle(fontSize: 15),
       ),
     );
