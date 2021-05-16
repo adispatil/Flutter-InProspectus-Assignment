@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_inprospect_test/main.dart';
-import 'package:flutter_inprospect_test/screens/login_screen.dart';
 import 'package:flutter_inprospect_test/screens/welcome_screen.dart';
 import 'package:flutter_inprospect_test/utils/app_constants.dart';
 import 'package:flutter_inprospect_test/utils/dummy_data.dart';
@@ -184,74 +183,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HeaderLabelWidget extends StatelessWidget {
-  const HeaderLabelWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-      child: Row(
-        children: <Widget>[
-          Icon(
-            Icons.local_fire_department_sharp,
-            size: 35,
-            color: Colors.red,
-          ),
-          SizedBox(
-            width: 7,
-          ),
-          Text(
-            'Have a burning question in mind? \nAsk to the community...',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Color(0xFFE16E3B)),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class AddCommentWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Material(
-              elevation: 5.0,
-              shadowColor: Colors.black,
-              child: TextFormField(
-                keyboardType: TextInputType.multiline,
-                minLines: 1,
-                maxLines: 2,
-                textInputAction: TextInputAction.newline,
-                autofocus: false,
-                decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.send_rounded),
-                    hintText: 'Type your comment...',
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide:
-                            BorderSide(color: Colors.white, width: 3.0))),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class LikeCommentWidget extends StatefulWidget {
   LikeCommentWidget({@required this.index});
 
@@ -323,61 +254,6 @@ class _LikeCommentWidgetState extends State<LikeCommentWidget> {
                 color: Colors.blueGrey),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class DisplayImageWidget extends StatelessWidget {
-  DisplayImageWidget({@required this.index});
-
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      child: Column(
-        children: <Widget>[
-          Container(
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Image.network(
-                imagesToDisplay.reversed.toList()[index],
-                fit: BoxFit.fill,
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes
-                          : null,
-                    ),
-                  );
-                },
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ListContentTextWidget extends StatelessWidget {
-  ListContentTextWidget({@required this.index});
-
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-      child: Text(
-        contents.reversed.toList()[index],
-        style: TextStyle(fontSize: 15),
       ),
     );
   }
